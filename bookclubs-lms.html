@@ -481,7 +481,7 @@ tr:hover .ra,tr.on .ra,.ra:focus-within{opacity:1}
 .lvh.G4{background:var(--lv-G4);color:var(--lv-G4-on)}
 .lvh.G5{background:var(--lv-G5);color:var(--lv-G5-on)}
 .lvh.G6{background:var(--lv-G6);color:var(--lv-G6-on)}
-.lv{height:44px}
+/* .lv 버튼 본체는 아래 진도설정 블록의 정의 하나만 쓴다 — 이중 정의 금지 */
 
 /* ── ② 레벨 배지 : 텍스트가 서열을 말하고, 색은 소속만 말한다 ──────
    K·G1…G6 라벨 자체가 이미 순서다. 길이/높이 부호화는 같은 정보를 두 번
@@ -767,9 +767,8 @@ dialog::backdrop{background:rgba(16,24,40,.6);backdrop-filter:blur(4px);animatio
 .rp b{display:block;font-size:18px;line-height:28px;font-weight:600;color:var(--g900);margin-top:2px}
 .rp.end{text-align:right}.rp.end b{color:var(--g500)}
 .rp-ar{font-size:20px;color:var(--g300)}
-.lvg{display:grid;grid-template-columns:32px repeat(4,1fr);gap:var(--sp2);align-items:center;margin-top:var(--sp4)}
-.lvh{font-size:12px;font-weight:600;color:var(--g500);text-align:right}
-.lv{height:40px;border:1px solid var(--g300);border-radius:var(--r3);background:#fff;font-size:14px;
+/* .lvg·.lvh 는 위 '① 레벨 그리드 행 라벨' 블록에서만 정의한다 (이중 정의 제거) */
+.lv{height:44px;border:1px solid var(--g300);border-radius:var(--r3);background:#fff;font-size:14px;
   font-weight:500;color:var(--g600);box-shadow:var(--sh-xs);transition:.15s var(--e);
   display:flex;align-items:center;justify-content:center}
 .lv:hover{border-color:var(--g400);color:var(--g900)}
@@ -1258,6 +1257,33 @@ dialog::backdrop{background:rgba(16,24,40,.6);backdrop-filter:blur(4px);animatio
   .me{justify-content:center}
   .grid4{grid-template-columns:repeat(2,1fr)}
 }
+
+/* ── 학습리포트 알림톡 발송 ── */
+.bdg-w{background:#FEE500;color:#191919}
+.alim-step{display:flex;gap:var(--sp4);padding:var(--sp5) 0;border-bottom:1px solid var(--g100)}
+.alim-step:first-child{padding-top:0}
+.alim-step:last-child{border-bottom:0;padding-bottom:0}
+.alim-n{width:24px;height:24px;border-radius:50%;background:var(--g900);color:#fff;font-size:12px;font-weight:600;
+  display:grid;place-items:center;flex:0 0 24px;margin-top:2px}
+.alim-b{flex:1;min-width:0}
+.alim-drop{width:100%;margin-top:var(--sp3);border:1.5px dashed var(--g300);border-radius:var(--r4);background:var(--g25);
+  padding:var(--sp6);display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--g600);
+  transition:.15s var(--e);text-align:center;cursor:pointer}
+.alim-drop:hover{border-color:var(--b300);background:var(--b25);color:var(--b700)}
+.alim-drop .ms{font-size:28px;color:var(--g400)}
+.alim-drop:hover .ms{color:var(--b500)}
+.alim-drop b{font-size:14px;font-weight:600}
+.alim-drop span{font-size:12px;color:var(--g500)}
+.alim-empty{padding:var(--sp5);background:var(--g50);border-radius:var(--r3);font-size:14px;color:var(--g500);
+  text-align:center;margin-top:var(--sp3)}
+.alim-sum{display:flex;align-items:center;gap:var(--sp2);margin-top:var(--sp3);font-size:14px;flex-wrap:wrap}
+.rowx td{background:var(--e50)}
+/* 완료 토스트 — alert() 대체. 모달이 닫힌 뒤에 뜬다. */
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(8px);background:var(--g900);color:#fff;
+  padding:10px 16px;border-radius:var(--r3);font-size:14px;font-weight:500;box-shadow:var(--sh-lg);opacity:0;
+  transition:.25s var(--e);z-index:200;pointer-events:none;display:flex;gap:8px;align-items:center}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast .ms{font-size:18px;color:var(--s500)}
 </style>
 
 <div class="app">
@@ -1582,6 +1608,7 @@ dialog::backdrop{background:rgba(16,24,40,.6);backdrop-filter:blur(4px);animatio
 
   </div>
 </div>
+</div><!-- /.app -->
 
 <!-- ═══ 회원 프로필 ═══ -->
 <dialog id="mProfile"><div class="mw lg" tabindex="-1" autofocus>
@@ -1885,23 +1912,54 @@ dialog::backdrop{background:rgba(16,24,40,.6);backdrop-filter:blur(4px);animatio
     <button class="btn btn-p" id="repSms"><span class="ms">send</span>리포트 발송하기</button></span></div>
 </div></dialog>
 
-<dialog id="mSms"><div class="mw sm" tabindex="-1" autofocus>
-  <div class="mh"><div class="mh-t"><div class="t-xl">리포트 발송</div>
-    <div class="mh-s" id="smsSub">–</div></div>
+<dialog id="mAlim"><div class="mw lg" tabindex="-1" autofocus>
+  <div class="mh"><div class="mh-t"><div class="t-xl">학습리포트 알림톡 발송
+      <span class="bdg bdg-w" style="margin-left:6px">카카오 알림톡</span></div>
+    <div class="mh-s" id="alSub">–</div></div>
     <button class="mx" data-close><span class="ms">close</span></button></div>
+  <div class="tabs" id="alTabs">
+    <button class="tab on" data-al="al1">일괄 발송</button>
+    <button class="tab" data-al="al2">개별 발송</button>
+    <button class="tab" data-al="al3">발송 이력<span class="nav-c" id="alHistN" style="margin-left:6px">0</span></button></div>
   <div class="mb">
-    <div class="card" style="background:var(--b25);border-color:var(--b200);padding:var(--sp4);
-      display:flex;gap:12px;align-items:flex-start;box-shadow:none">
-      <span class="ms" style="font-size:20px;color:var(--b600)">link</span>
-      <div><div class="t-sm w600" style="color:var(--b700)">Monthly Report 링크를 문자로 보냅니다</div>
-        <div class="t-xs" style="color:var(--b700);opacity:.8;margin-top:2px">
-          수신자는 로그인 없이 이번 달 리포트를 볼 수 있습니다.</div></div></div>
-    <div class="fg" style="margin-top:var(--sp5)"><label class="lbl">받는 번호</label>
-      <input class="inp" id="smsPhone" placeholder="01012345678" inputmode="numeric">
-      <div class="hlp" id="smsHint"></div></div>
+    <div class="pane on" id="al1">
+      <div class="alim-step"><div class="alim-n">1</div><div class="alim-b">
+        <div class="t-md">양식 파일</div>
+        <div class="t-sm m500" style="margin-top:2px"><b class="w600" id="alTplCt">–</b>의 아이디·이름이
+          <b class="w600" style="color:var(--g700)">미리 채워진</b> 양식입니다. 학부모 연락처만 채워서 업로드하세요.</div>
+        <div class="pg-row" style="margin-top:var(--sp3)">
+          <button class="btn btn-s" id="alTpl"><span class="ms">download</span>양식 다운로드 (.xlsx)</button>
+          <span class="t-xs m400" id="alTplNote"></span></div>
+      </div></div>
+      <div class="alim-step"><div class="alim-n">2</div><div class="alim-b">
+        <div class="t-md">파일 업로드</div>
+        <button class="alim-drop" id="alDrop" type="button"></button>
+      </div></div>
+      <div class="alim-step"><div class="alim-n">3</div><div class="alim-b">
+        <div class="t-md">확인</div>
+        <div id="alCheck"></div>
+      </div></div>
+    </div>
+    <div class="pane" id="al2">
+      <div class="fg"><label class="lbl">학생</label>
+        <div class="sel" id="alStu" data-sel style="width:100%;max-width:320px"></div>
+        <div class="hlp">발송 링크는 학생 아이디로 자동 생성됩니다.</div></div>
+      <div class="fg"><label class="lbl">학부모 연락처</label>
+        <input class="inp" id="alPhone" placeholder="01012345678" inputmode="numeric" style="max-width:320px" autocomplete="off">
+        <div class="hlp">발송에만 사용하며 번호는 저장되지 않습니다.</div></div>
+      <div class="card" style="background:var(--b25);border-color:var(--b200);padding:var(--sp4);
+        display:flex;gap:12px;align-items:flex-start;box-shadow:none">
+        <span class="ms" style="font-size:20px;color:var(--b600)">link</span>
+        <div><div class="t-sm w600" style="color:var(--b700)">Monthly Report 링크가 카카오 알림톡으로 전송됩니다</div>
+          <div class="t-xs" style="color:var(--b700);opacity:.8;margin-top:2px">
+            수신자는 로그인 없이 이번 달 리포트를 볼 수 있습니다. 알림톡 실패 시 SMS로 자동 대체됩니다.</div></div></div>
+    </div>
+    <div class="pane" id="al3"><div id="alHist"></div></div>
   </div>
-  <div class="mf"><span class="gr"><button class="btn btn-s" data-close>취소</button>
-    <button class="btn btn-p" id="smsSend"><span class="ms">send</span>전송</button></span></div>
+  <div class="mf">
+    <span class="t-xs m500">발송 실패 시 SMS 자동 대체 · 전화번호는 발송 후 저장되지 않습니다</span>
+    <span class="gr"><button class="btn btn-s" data-close>취소</button>
+      <button class="btn btn-p" id="alSend" disabled><span class="ms">send</span>알림톡 발송</button></span></div>
 </div></dialog>
 
 <!-- ═══ 메시지 ═══ -->
@@ -2529,10 +2587,8 @@ function renderClsList(){
       +'</span></span></div>'}).join('');
 }
 /* 범례 — 색 7개 + 테두리 2종 + 경고 1개. 그 이상 늘리지 않는다. */
-document.addEventListener('DOMContentLoaded',()=>{});
 (function(){const el=document.getElementById('stuLegend');if(!el)return;
-  el.innerHTML=LV_LEGEND
-''})();
+  el.innerHTML=LV_LEGEND})();
 const PROG_LABEL={auto:'자동진도',hw:'숙제내기',arc:'알파리더스'};
 const PROG_FULL={auto:'자동진도설정',hw:'숙제내기',arc:'알파리더스코스'};
 function progSummary(c){
@@ -2832,17 +2888,122 @@ $('mcSave').onclick=()=>{const v=$('mcName').value.trim();
 let tFromClass=false;
 $('mcNewT').onclick=()=>{tFromClass=true;openNewMember('교사',$('mcName').value.trim())};
 
-/* ── 문자 발송 : 회원 전화번호 자동 채움 ── */
-let smsFor=null;
-function openSms(m){smsFor=m;
-  $('smsSub').innerHTML='<b class="w600" style="color:var(--g700)">'+esc(m.n)+'</b> · 이번 달 리포트';
-  /* 개인정보를 수집하지 않으므로 번호는 매번 직접 입력하고 저장하지 않는다 */
-  $('smsPhone').value='';
-  $('smsHint').textContent='발송에만 사용되며 번호는 저장되지 않습니다.';
-  $('mSms').showModal();setTimeout(()=>$('smsPhone').focus(),60)}
-$('smsSend').onclick=()=>{const v=$('smsPhone').value.replace(/\D/g,'');
-  if(v.length<10){alert('전화번호를 정확히 입력해 주세요.');return}
-  $('mSms').close();alert('리포트를 발송했습니다.')};
+/* ═══ 학습리포트 알림톡 발송 ═══════════════════════════════════
+   실서비스 안내 PDF 7장짜리 플로우를 화면 3단계로 옮겼다.
+     ① 양식이 빈 파일이 아니라 '학생 아이디·이름이 채워진 파일'로 나간다
+        — 학생 리스트를 따로 받아 "같은 색끼리 복사"하던 병합 작업이 사라진다.
+     ② 업로드 즉시 검증 미리보기 — 형식 오류·미등록 아이디는 행 단위로 제외하고,
+        파일에 없는 '최근 등록 재원생'을 경고한다 (지난달 양식 재사용의 구멍).
+     ③ 발송 후 번호는 버리고 이력만 남긴다 — "지난달에 보냈던가?"에 답한다.
+   ═══════════════════════════════════════════════════════════ */
+function toast(msg,icon){let t=document.getElementById('toast');
+  if(!t){t=document.createElement('div');t.id='toast';t.className='toast';document.body.appendChild(t)}
+  t.innerHTML='<span class="ms">'+(icon||'check_circle')+'</span>'+msg;
+  t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),4000)}
+const ALIM={targets:[],rows:null,miss:[],tab:'al1',
+  hist:[{dt:'2026-07-21 10:12',label:'Monthly Report 일괄 38명',kakao:36,sms:2}]};
+const alStudents=()=>DATA.filter(m=>m.t==='학생'&&m.st==='재원');
+const AL_DROP='<span class="ms">upload_file</span><b>엑셀 파일을 끌어다 놓거나 클릭해서 선택</b>'
+  +'<span>작성한 .xlsx 양식만 지원 · 프로토타입에서는 클릭하면 예시 파일 업로드로 시뮬레이션됩니다</span>';
+function openAlim(ids,tab){
+  const all=alStudents();
+  const pick=ids&&ids.length?all.filter(m=>ids.includes(m.id)):[];
+  ALIM.targets=pick.length?pick:all;
+  ALIM.rows=null;ALIM.miss=[];
+  $('alSub').textContent='학생 '+ALIM.targets.length+'명 · Monthly Report 링크를 학부모에게 보냅니다';
+  $('alTplCt').textContent=(pick.length?'선택한 학생 ':'재원 학생 ')+ALIM.targets.length+'명';
+  $('alTplNote').textContent='';
+  $('alDrop').innerHTML=AL_DROP;
+  $('alCheck').innerHTML='<div class="alim-empty">파일을 업로드하면 수신자 목록과 검증 결과가 여기에 표시됩니다.</div>';
+  makeSel($('alStu'),all.map(m=>({v:m.id,l:m.n+' · @'+m.id})),
+    ALIM.targets.length===1?ALIM.targets[0].id:'',()=>syncAlim(),'학생 선택');
+  $('alPhone').value='';
+  renderAlimHist();alTab(tab||'al1');
+  $('mAlim').showModal();$('mAlim').querySelector('.mb').scrollTop=0}
+function alTab(p){ALIM.tab=p;
+  document.querySelectorAll('#mAlim .tab').forEach(t=>t.classList.toggle('on',t.dataset.al===p));
+  document.querySelectorAll('#mAlim .pane').forEach(x=>x.classList.toggle('on',x.id===p));
+  syncAlim()}
+$('alTabs').addEventListener('click',e=>{const t=e.target.closest('.tab');if(t)alTab(t.dataset.al)});
+function syncAlim(){
+  const b=$('alSend');
+  b.style.display=ALIM.tab==='al3'?'none':'';
+  if(ALIM.tab==='al1'){
+    const ok=ALIM.rows?ALIM.rows.filter(r=>r.ok).length:0;
+    b.disabled=!ok;b.innerHTML='<span class="ms">send</span>알림톡 발송'+(ok?' ('+ok+'명)':'')}
+  else if(ALIM.tab==='al2'){
+    const id=$('alStu').dataset.val,v=($('alPhone').value||'').replace(/\D/g,'');
+    b.disabled=!(id&&v.length>=10);b.innerHTML='<span class="ms">send</span>알림톡 발송 (1명)'}}
+$('alPhone').oninput=syncAlim;
+$('alTpl').onclick=()=>{
+  $('alTplNote').innerHTML='<b class="w600" style="color:var(--s700)">리포트양식_'+TODAY.slice(0,7)
+    +'.xlsx</b> 다운로드됨 · '+ALIM.targets.length+'명 미리 채움'};
+/* 업로드 시뮬레이션 — 실제 개발에서는 파일을 파싱해 같은 검증을 돌린다 */
+$('alDrop').onclick=()=>{
+  let base=ALIM.targets.slice();
+  /* 데모: 전체 발송이면 최신 등록 1명을 빠뜨려 '지난달 양식 재사용' 상황을 재현 */
+  if(base.length===alStudents().length&&base.length>3)base=base.slice(1);
+  const rs=base.map((m,i)=>({id:m.id,n:m.n,
+    ph:'010-'+String(1234+i*37).slice(-4)+'-'+String(5678+i*91).slice(-4),ok:true,why:''}));
+  if(rs.length>1){const x=rs[rs.length-1];x.ok=false;x.ph=x.ph.slice(0,8);x.why='전화번호 형식 오류'}
+  rs.push({id:'ghost99',n:'(알 수 없음)',ph:'010-0000-0000',ok:false,why:'등록되지 않은 아이디'});
+  ALIM.rows=rs;
+  const inFile=new Set(rs.map(r=>r.id)),cut=addDays(TODAY,-60);
+  ALIM.miss=alStudents().filter(m=>!inFile.has(m.id)&&m.d>=cut);
+  $('alDrop').innerHTML='<span class="ms" style="color:var(--s600)">task_alt</span>'
+    +'<b>리포트양식_'+TODAY.slice(0,7)+'.xlsx</b><span>'+rs.length+'행 읽음 · 다른 파일을 올리려면 다시 클릭</span>';
+  renderAlimCheck();syncAlim()};
+function renderAlimCheck(){
+  const rs=ALIM.rows,bad=rs.filter(r=>!r.ok).length,ok=rs.length-bad;
+  let h='';
+  if(ALIM.miss.length){
+    const nm=ALIM.miss.slice(0,3).map(m=>esc(m.n)+' ('+m.d.slice(5).replace('-','/')+' 등록)').join(' · ');
+    h+='<div class="pg-warn" style="margin-top:var(--sp3)"><span class="ms">error</span><span>'
+      +'파일에 없는 최근 등록 재원생 <b>'+ALIM.miss.length+'명</b> — '+nm+(ALIM.miss.length>3?' 외':'')
+      +'. 지난달 양식을 재사용했다면 <b>이번 달 신규 학생이 빠졌을 수 있습니다.</b></span></div>'}
+  h+='<div class="tw" style="margin-top:var(--sp3)"><table class="tb">'
+    +'<colgroup><col style="width:15%"><col style="width:20%"><col style="width:20%"><col style="width:23%"><col style="width:22%"></colgroup>'
+    +'<thead><tr><th>상태</th><th>이름</th><th>아이디</th><th>학부모 연락처</th><th>비고</th></tr></thead><tbody>'
+    +rs.map(r=>'<tr'+(r.ok?'':' class="rowx"')+'><td>'
+      +(r.ok?'<span class="bdg bdg-s">발송 대상</span>':'<span class="bdg bdg-e">제외</span>')
+      +'</td><td>'+esc(r.n)+'</td><td><span class="uid">@'+esc(r.id)+'</span></td>'
+      +'<td class="num">'+r.ph+'</td>'
+      +'<td class="t-sm'+(r.ok?' m400':'')+'"'+(r.ok?'':' style="color:var(--e700)"')+'>'+(r.why||'–')+'</td></tr>').join('')
+    +'</tbody></table></div>'
+    +'<div class="alim-sum"><span class="bdg bdg-s">'+ok+'명 발송 대상</span>'
+    +(bad?'<span class="bdg bdg-e">'+bad+'건 제외</span>':'')
+    +'<span class="t-xs m400" style="margin-left:auto">제외된 행은 발송되지 않습니다 · 아래 버튼으로 확정합니다</span></div>';
+  $('alCheck').innerHTML=h}
+function renderAlimHist(){
+  $('alHistN').textContent=ALIM.hist.length;
+  $('alHist').innerHTML=ALIM.hist.length
+    ?'<div class="tw"><table class="tb">'
+      +'<colgroup><col style="width:24%"><col style="width:48%"><col style="width:28%"></colgroup>'
+      +'<thead><tr><th>일시</th><th>내용</th><th class="R">결과</th></tr></thead><tbody>'
+      +ALIM.hist.map((x,i)=>'<tr><td class="t-sm">'+x.dt+'</td><td>'+esc(x.label)
+        +' <button class="btn btn-tb btn-sm" data-alre="'+i+'">이 명단으로 양식 만들기</button></td>'
+        +'<td class="R t-sm">알림톡 '+x.kakao+(x.sms?' · SMS 대체 '+x.sms:'')+'</td></tr>').join('')
+      +'</tbody></table></div>'
+    :'<div class="empty"><div class="empty-i"><span class="ms">forward_to_inbox</span></div>'
+      +'<h4>발송 이력이 없습니다</h4><p>알림톡을 발송하면 여기에 기록됩니다</p></div>'}
+$('alHist').addEventListener('click',e=>{const b=e.target.closest('[data-alre]');if(!b)return;
+  alTab('al1');
+  $('alTplNote').innerHTML='지난 발송 명단으로 <b class="w600" style="color:var(--s700)">리포트양식_'
+    +TODAY.slice(0,7)+'.xlsx</b>를 만들었습니다 · 연락처 확인 후 업로드하세요'});
+$('alSend').onclick=()=>{
+  const now=TODAY+' 10:'+String(10+ALIM.hist.length).padStart(2,'0');
+  if(ALIM.tab==='al2'){
+    const m=DATA.find(x=>x.id===$('alStu').dataset.val);if(!m)return;
+    ALIM.hist.unshift({dt:now,label:m.n+' · Monthly Report',kakao:1,sms:0});
+    $('mAlim').close();toast(esc(m.n)+' 학부모에게 알림톡을 발송했습니다')}
+  else{
+    const ok=ALIM.rows?ALIM.rows.filter(r=>r.ok):[];if(!ok.length)return;
+    const sms=Math.min(ok.length,Math.round(ok.length*.08));
+    ALIM.hist.unshift({dt:now,label:'Monthly Report 일괄 '+ok.length+'명',kakao:ok.length-sms,sms});
+    $('mAlim').close();sel.clear();render();
+    toast('알림톡 '+(ok.length-sms)+'명 발송 완료'+(sms?' · SMS 대체 '+sms+'명':''))}};
+/* 기존 진입점은 그대로 — 행·프로필·리포트 모달 어디서 눌러도 같은 화면 */
+function openSms(m){openAlim(m?[m.id]:[],'al2')}
 
 /* ── 실서비스 페이지 열기 ── */
 /* 리포트 진입점은 회원관리 행 · 반학습관리 행 · 프로필 하단 세 곳이다.
@@ -4183,9 +4344,8 @@ document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>closeDialog(b
 document.querySelectorAll('dialog').forEach(d=>d.addEventListener('cancel',e=>{
   e.preventDefault();closeDialog(d)}));
 document.querySelectorAll('dialog').forEach(dl=>{
-  dl.addEventListener('click',e=>{if(e.target===dl)dl.close()});
-  dl.addEventListener('cancel',e=>{if(dl.id==='mEdit'&&dirty){e.preventDefault();
-    closeDialog(dl)}})});
+  /* 배경 클릭도 X·Esc·취소와 같은 길을 탄다 — 저장 안 한 값 확인을 우회하지 않는다 */
+  dl.addEventListener('click',e=>{if(e.target===dl)closeDialog(dl)});});
 /* ── 탭 : 모든 모달 공통 위임 처리 ────────────────────────────────
    개별 모달마다 핸들러를 붙이면 리팩터링 때 누락된다. 하나로 묶는다.
    data-p(프로필) · data-cp(반정보) 어느 쪽이든 동작한다.
@@ -4240,8 +4400,8 @@ $('d1').onchange=e=>{S.d1=e.target.value;S.page=1;syncRange();render()};
 $('d2').onchange=e=>{S.d2=e.target.value;S.page=1;syncRange();render()};
 $('bMore').onclick=()=>{const a=$('adv');a.style.display=a.style.display==='none'?'flex':'none'};
 document.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{
-  const mm=+b.dataset.r,fr=new Date('2026-08-11');fr.setMonth(fr.getMonth()-mm);
-  S.d1=fr.toISOString().slice(0,10);S.d2='2026-08-11';
+  const mm=+b.dataset.r,fr=new Date(TODAY);fr.setMonth(fr.getMonth()-mm);
+  S.d1=fr.toISOString().slice(0,10);S.d2=TODAY;
   $('d1').value=S.d1;$('d2').value=S.d2;S.page=1;render()});
 document.querySelectorAll('#v-members th.so').forEach(th=>th.onclick=()=>{
   const s=th.dataset.s;
@@ -4253,10 +4413,12 @@ $('tb').addEventListener('change',e=>{
   const tr=e.target.closest('tr');
   e.target.checked?sel.add(tr.dataset.id):sel.delete(tr.dataset.id);render()});
 $('tb').addEventListener('click',e=>{
-  if(e.target.id==='eRs'){S={q:'',cls:'',status:'재원',type:'',d1:'',d2:'',sort:'d',dir:'desc',page:1,pp:20};
+  if(e.target.id==='eRs'){S={q:'',cls:'',status:'재원',type:'',d1:'',d2:'',sort:'d',dir:'desc',page:1,pp:20,sleep:false};
     $('q').value='';$('qx').style.display='none';sel.clear();
+    $('d1').value='';$('d2').value='';syncRange();
     makeSel($('selCls'),[{v:'',l:'모든 반'}].concat(CLASSES.map(c=>({v:c,l:c}))),'',v=>{S.cls=v;S.page=1;render()});
     makeSel($('selTyp'),TYPE_OPTS,'',v=>{S.type=v;S.page=1;render()});
+    makeSel($('selPp'),[{v:'20',l:'20개'},{v:'50',l:'50개'},{v:'100',l:'100개'}],'20',v=>{S.pp=+v;S.page=1;render()});
     document.querySelectorAll('#seg .seg-b').forEach((x,i)=>x.classList.toggle('on',i===0));
     return render()}
   const t=e.target.closest('[data-act]');if(!t)return;
@@ -4279,10 +4441,7 @@ $('baOut').onclick=()=>{
         /* 퇴원한 교사가 반의 담당으로 남아 있으면 안 된다 */
         if(!back&&m.t==='교사')CLSDATA.forEach(c=>{if(c.teacher===m.id)c.teacher=''})});
       sel.clear();refreshAll()}})};
-$('baRep').onclick=()=>{const n=sel.size;
-  ask({title:n+'명에게 리포트를 발송할까요?',
-    desc:'Monthly Report 링크가 문자로 전송됩니다.',ok:'발송',
-    onOk:()=>alert(n+'명에게 발송했습니다.')})};
+$('baRep').onclick=()=>openAlim([...sel],'al1');
 $('pReport').onclick=()=>openReport(cur);
 $('repSms').onclick=()=>{const m=repCur;$('mReport').close();if(m)openSms(m)};
 document.addEventListener('click',e=>{const o=e.target.closest('[data-open]');
@@ -4339,7 +4498,6 @@ $('baMove').onclick=()=>{if(!sel.size)return;
   $('mMove').showModal()};
 $('mvGo').onclick=()=>{const to=$('selMvCls').dataset.val,n=sel.size;
   [...sel].forEach(id=>{const m=DATA.find(x=>x.id===id);if(m)m.cls=to});
-  CLSDATA.forEach(c=>c.n=DATA.filter(m=>m.cls===c.name).length);
   $('mMove').close();sel.clear();refreshAll();
   alert(n+'명을 ['+to+'] 반으로 이동했습니다.')};
 document.addEventListener('keydown',e=>{
