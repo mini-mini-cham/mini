@@ -2023,61 +2023,6 @@ a:focus-visible{
    3. Mobile skills progressive disclosure
    ============================================================ */
 
-/* ---------- Header CTA hierarchy ---------- */
-.headerPrimaryCta{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:40px;
-  padding:0 16px;
-  border-radius:999px;
-  background:var(--primary);
-  color:#fff !important;
-  font-size:14px;
-  font-weight:600;
-  line-height:1;
-  text-decoration:none;
-  transition:background .18s ease;
-}
-.headerPrimaryCta:hover{
-  background:var(--primary-deep);
-}
-.headerLoginLink{
-  display:inline-flex;
-  align-items:center;
-  min-height:40px;
-  padding:0 4px;
-  color:var(--sub);
-  font-size:13.5px;
-  font-weight:500;
-  text-decoration:none;
-}
-.headerLoginLink:hover{color:var(--ink)}
-
-.drawerPrimaryCta,
-.drawerLoginLink{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:100%;
-  min-height:48px;
-  border-radius:999px;
-  font-size:15px;
-  font-weight:600;
-  text-decoration:none;
-}
-.drawerPrimaryCta{
-  margin-top:8px;
-  background:var(--primary);
-  color:#fff;
-}
-.drawerLoginLink{
-  margin-top:10px;
-  border:1px solid var(--line);
-  background:#fff;
-  color:var(--body);
-}
-
 /* ---------- Evidence numbers: never animate through false values ---------- */
 .big-number,
 .meter-value{
@@ -2222,6 +2167,125 @@ a:focus-visible{
     margin-top:36px !important;
   }
 }
+
+
+/* ============================================================
+   V77 LIVE-SITE GNB MATCH
+   Based on the current new.bookclubs.co.kr navigation:
+   무료체험 / 어린이영어작가 / 사용후기 / 북클럽 들어가기
+   ============================================================ */
+.header{
+  height:72px;
+  background:rgba(255,255,255,.96);
+  border-bottom:1px solid #eef1f4;
+  box-shadow:none;
+  backdrop-filter:blur(14px);
+}
+.headerInner{
+  height:72px;
+  grid-template-columns:auto minmax(0,1fr) auto;
+  gap:36px;
+}
+.logo{
+  width:132px;
+  height:auto;
+  display:block;
+}
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:30px;
+}
+.navLink{
+  display:inline-flex;
+  align-items:center;
+  min-height:40px;
+  padding:0;
+  color:#4e5968;
+  font-size:14px;
+  font-weight:500;
+  line-height:1;
+  letter-spacing:-.02em;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.navLink:hover{
+  color:#191f28;
+}
+.actions{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+}
+.enterButton{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:0 20px;
+  border:0;
+  border-radius:999px;
+  background:#171b21;
+  color:#fff !important;
+  font-size:14px;
+  font-weight:600;
+  line-height:1;
+  letter-spacing:-.02em;
+  text-decoration:none;
+  box-shadow:none;
+}
+.enterButton:hover{
+  background:#252b33;
+}
+
+/* The local landing page has its own chapter nav below the live-style GNB. */
+.chapter-nav{
+  top:72px;
+}
+
+@media(max-width:760px){
+  :root{--header:64px}
+
+  .header{
+    height:64px;
+  }
+  .headerInner{
+    height:64px;
+    grid-template-columns:40px auto 1fr;
+    gap:12px;
+  }
+  .logo{
+    width:118px;
+  }
+
+  .drawerNav{
+    display:grid;
+    gap:2px;
+    margin-top:24px;
+  }
+  .drawerNav .navLink{
+    width:100%;
+    min-height:48px;
+    padding:0 4px;
+    font-size:16px;
+    font-weight:500;
+    color:#333d4b;
+  }
+  .drawerActions{
+    margin-top:22px;
+    padding-top:22px;
+    border-top:1px solid #eef1f4;
+  }
+  .drawerActions .enterButton{
+    width:100%;
+    min-height:48px;
+  }
+
+  .chapter-nav{
+    top:64px;
+  }
+}
 </style></head>
 <body class="chambit-page">
 <div aria-hidden="true" class="scroll-rail"><i id="scrollRailFill"></i></div>
@@ -2234,12 +2298,12 @@ a:focus-visible{
 <img alt="참빛북클럽 홈으로" class="logo" decoding="async" height="32" src="https://new.bookclubs.co.kr/brandnew/images/common/logo.png" width="132"/>
 </a>
 <nav aria-label="주요 메뉴" class="nav">
-<a class="navLink headerPrimaryCta" href="https://new.bookclubs.co.kr/pages/bookclubs/freetrial/apply" onclick="newHeaderTrackFreeTrial()">2주 무료 체험</a>
+<a class="navLink navHome" href="https://new.bookclubs.co.kr/pages/bookclubs/freetrial/apply" onclick="newHeaderTrackFreeTrial()">무료체험</a>
 <a class="navLink navItem" href="https://new.bookclubs.co.kr/pages/readingroom/storyfrom">어린이영어작가</a>
 <a class="navLink navItem" href="https://new.bookclubs.co.kr/pages/brandnew/personal/userguide/review">사용후기</a>
 </nav>
 <div class="actions">
-<a class="headerLoginLink" href="https://new.bookclubs.co.kr/pages/user/login">북클럽 들어가기</a>
+<a class="enterButton" href="https://new.bookclubs.co.kr/pages/user/login">북클럽 들어가기</a>
 </div>
 <span aria-hidden="true" class="hdrSpacer"></span>
 </div>
@@ -2256,12 +2320,12 @@ a:focus-visible{
 <aside aria-hidden="true" aria-label="모바일 메뉴" aria-modal="true" class="newMobileDrawer" id="newMobileDrawer" inert="" role="dialog">
 <button aria-label="메뉴 닫기" class="closeBtn" onclick="newHeaderClose()" type="button">✕</button>
 <nav class="drawerNav">
-<a class="drawerPrimaryCta" href="https://new.bookclubs.co.kr/pages/bookclubs/freetrial/apply" onclick="newHeaderTrackFreeTrial()">2주 무료 체험</a>
+<a class="navLink" href="https://new.bookclubs.co.kr/pages/bookclubs/freetrial/apply" onclick="newHeaderTrackFreeTrial()">무료체험</a>
 <a class="navLink" href="https://new.bookclubs.co.kr/pages/readingroom/storyfrom">어린이영어작가</a>
 <a class="navLink" href="https://new.bookclubs.co.kr/pages/brandnew/personal/userguide/review">사용후기</a>
 </nav>
 <div class="drawerActions">
-<a class="drawerLoginLink" href="https://new.bookclubs.co.kr/pages/user/login">북클럽 들어가기</a>
+<a class="enterButton" href="https://new.bookclubs.co.kr/pages/user/login">북클럽 들어가기</a>
 </div>
 </aside>
 <main id="top">
