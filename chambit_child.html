@@ -8659,10 +8659,13 @@ html body.chambit-page.chambit-page.chambit-page.chambit-page.chambit-page .hero
 
    [결정] 4행 / 컨테이너 비례
 
-       font-size: min(72px, calc((100vw - 40px) / 6.48))
+       font-size: min(52px, calc((100vw - 40px) / 7.28))
+
+   ※ 처음 6.48 로 잡아 375px 에서 52px 이 나왔으나 '부담스럽다'는
+     피드백을 받아 7.28 로 조정했다. 375px 기준 46px.
 
    글자크기를 컨테이너 폭에 정비례시키면 채움률이 화면 크기와
-   무관하게 일정해진다 — 어느 폰에서도 56 / 85 / 82 / 56 %.
+   무관하게 일정해진다 — 어느 폰에서도 48 / 74 / 71 / 49 %.
    (고정 상한을 두면 화면이 넓어질수록 채움률이 떨어져,
     560px 에서 36 / 56 / 54 / 37 까지 무너지는 것을 실측했다.)
 
@@ -8679,16 +8682,16 @@ html body.chambit-page.chambit-page.chambit-page.chambit-page.chambit-page .hero
    [세로 리듬 재배분]
                         v163    v164
      히어로 상단 패딩      32      48
-     타이틀 블록          83     246
+     타이틀 블록          83     210
      타이틀→비주얼 간격    24      32
      일러스트            198     198
      일러스트→칩          12      20
      칩 3개              132     132
      히어로 하단 패딩      32      48
      ─────────────────────────────────
-     히어로 총높이        508     724   (뷰포트의 60% → 86%)
+     히어로 총높이        508     690   (뷰포트의 60% → 82%)
 
-   헤더·챕터바 118px 을 더하면 842px — 844px 화면을 정확히 채운다.
+   헤더·챕터바 118px 을 더하면 808px — 844px 화면을 거의 채운다.
    다음 섹션 제목은 화면 밖에서 시작하므로, 스크롤을 내려야
    비로소 콘텐츠가 나온다. 이것이 '히어로 느낌'의 실체다.
 
@@ -8712,7 +8715,7 @@ html body.chambit-page.chambit-page.chambit-page.chambit-page.chambit-page .hero
 /* ------------------------------------------------------------
    [560px 분기의 근거]
    글자크기를 컨테이너에 정비례시키면 4행 조판은 폭이 넓어질수록
-   계속 커진다. 560px 에서 80px, 760px 이면 111px 이 되어 버린다.
+   계속 커진다. 상한 52px 을 둔 이유이기도 하다.
    반대로 상한을 고정하면 채움률이 무너진다(560px 에서 36/56/54/37).
 
    그래서 넓어지는 구간에서는 조판 자체를 바꾼다. 561px 부터는
@@ -8733,7 +8736,7 @@ html body.chambit-page.chambit-page.chambit-page.chambit-page.chambit-page .hero
     display:block !important;
   }
   html body.chambit-page.chambit-page.chambit-page.chambit-page.chambit-page .hero-copy-v17 h1{
-    font-size:min(72px, calc((100vw - 40px) / 6.48)) !important;
+    font-size:min(52px, calc((100vw - 40px) / 7.28)) !important;
     line-height:1.14 !important;
     letter-spacing:-.036em !important;
     font-weight:700 !important;
