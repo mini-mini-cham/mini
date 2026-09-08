@@ -9687,6 +9687,51 @@ html body.chambit-page.chambit-page.chambit-page.chambit-page.chambit-page .proo
 }
 
 
+/* ============================================================
+   V184 — 근거 문단 ↔ ever 블록 사이 여백 절반 · 페이지 하단 +10px
+   ------------------------------------------------------------
+   [위 여백 절반]
+   ever 블록(.reference-captured)은 위쪽 여백이 두 겹이다.
+     margin-top   +  padding-top
+     데스크톱 68  +  56  = 124px
+     모바일   48  +  40  =  88px
+   둘 다 반으로 줄인다. 34+28 = 62px / 24+20 = 44px.
+   근거 문단("저희가 한 일은…")과 ever 인용문은 같은 이야기의
+   앞뒤라 이 정도면 한 흐름으로 이어진다.
+
+   [하단 +10px]
+   마무리 카드를 지우면서 섹션이 관찰 카드 02 에서 바로 끝난다.
+   마지막 카드의 아래 선이 화면 끝과 너무 가까워 보이므로
+   섹션 아래 여백만 10px 더 준다.
+     데스크톱 136 → 146px
+     모바일    84 →  94px
+
+   ※ 값을 calc() 로 적은 이유
+     빌드 마지막에 여백을 4px 그리드로 반올림하는 단계가 있는데
+     34 · 146 · 94 는 그리드에 없는 값이라 그대로 두면 32 · 144 ·
+     96 으로 끌려간다. calc() 안은 건드리지 않으므로 의도한
+     값이 그대로 남는다.
+   ============================================================ */
+
+html body.chambit-page.chambit-page.chambit-page.chambit-page.chambit-page .reference-process .reference-captured{
+  margin-top:calc(68px / 2) !important;
+  padding-top:calc(56px / 2) !important;
+}
+html body.chambit-page.chambit-page.chambit-page.chambit-page.chambit-page .reference-process{
+  padding-bottom:calc(136px + 10px) !important;
+}
+
+@media (max-width:760px){
+  html body.chambit-page.chambit-page.chambit-page.chambit-page.chambit-page .reference-process .reference-captured{
+    margin-top:calc(48px / 2) !important;
+    padding-top:calc(40px / 2) !important;
+  }
+  html body.chambit-page.chambit-page.chambit-page.chambit-page.chambit-page .reference-process{
+    padding-bottom:calc(84px + 10px) !important;
+  }
+}
+
+
 
 /* ============================================================
    NEUTRAL RAMP — 그레이 팔레트 통합 (자동 생성)
@@ -9802,14 +9847,6 @@ html body.chambit-page.chambit-page.chambit-page.chambit-page.chambit-page .proo
 </div>
 </div>
 </div>
-</div>
-<div class="closing-note reveal">
-<div class="closing-body">
-<strong>다음 차례는 원장님 학원 아이들입니다</strong>
-<p>학부모 상담 자리에 성적표만 있을 이유는 없습니다. 표지에 <b>아이 이름이 적힌 책</b>이 한 권 올라갑니다.</p>
-<p class="closing-sub">2028학년도 대입 개편안에는 서·논술형이 계속 오르내립니다. 그때 가서 시작할 수 있는 일이 아닙니다.</p>
-</div>
-<a class="closing-cta" href="https://new.bookclubs.co.kr/pages/bookclubs/freetrial/apply">어린이 영어작가 상담</a>
 </div>
 </div>
 </section>
