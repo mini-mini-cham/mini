@@ -234,17 +234,16 @@ ul{ margin:0; padding:0; list-style:none; }
   color:var(--ink-2);          /* 본문 그레이 (한 단계 낮은 톤) */
   box-shadow:0 6px 16px rgba(17,18,19,0.05);
 }
-/* 말풍선 꼬리 (아래쪽) */
+/* 말풍선 꼬리 (아래쪽) — 요약 바 알약과 같은 실루엣(오목 플레어 + 둥근 끝) */
 .qlist li::after{
   content:"";
   position:absolute;
-  bottom:-9px;
+  bottom:-8px;
   left:36%;
   transform:translateX(-50%);
-  width:0; height:0;
-  border-top:10px solid var(--white);
-  border-left:9px solid transparent;
-  border-right:9px solid transparent;
+  width:24px; height:9.5px;
+  border:0;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 9.5' fill='none'><path d='M0 1.5C4.68 1.5 8.58 5.34 10.4 7.16Q13 9.5 15.6 7.16C17.42 5.34 21.32 1.5 26 1.5L26 0L0 0Z' fill='%23ffffff'/></svg>") no-repeat center / contain;
 }
 /* 말풍선 아이콘 : 꼬리 옆, 아래 모서리에 걸칩니다 (기본/오버 두 장을 겹쳐 교차) */
 .qlist .qicon{
@@ -354,22 +353,24 @@ ul{ margin:0; padding:0; list-style:none; }
   content:"";
   position:absolute;
   top:var(--rail-y);
-  left:0; right:13px;
+  left:0; right:7px;
   height:3px;
   border-radius:2px;
   background:var(--rail-color);
   transform:translateY(-50%);
 }
-.rail-track::after{            /* 화살촉 */
+/* 화살촉 : 당근의 화살표 아이콘 비례를 그대로 따랐습니다.
+   (당근 arrow icon — 촉 세로:가로 ≈ 1.2:1, 축과 같은 굵기, 모든 꼭짓점 라운드)
+   꽉 찬 예각 삼각형 대신 진행선과 같은 3px 획으로 벌어진 촉을 그립니다. */
+.rail-track::after{
   content:"";
   position:absolute;
   top:var(--rail-y);
   right:0;
   transform:translateY(-50%);
-  width:0; height:0;
-  border-left:13px solid var(--rail-color);
-  border-top:7px solid transparent;
-  border-bottom:7px solid transparent;
+  width:10.5px; height:18px;
+  border:0;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10.5 18' fill='none'><path d='M2 2L8.5 9L2 16' stroke='%23d5d5d2' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat center / contain;
 }
 .rail-node{
   display:flex;
@@ -474,24 +475,28 @@ a.rail-node:focus-visible{ outline:2px solid var(--ink); outline-offset:6px; }
   max-width:163px;
   height:50px;
   padding:0 12px;
-  margin:0 auto;
+  /* 위 레일과 같은 5칸 그리드 — 알약도 각 칸의 '시작선'에 맞춥니다.
+     가운데 정렬하면 위의 번호·제목(좌측 정렬)과 어긋나 보입니다. */
+  margin:0;
+  justify-self:start;
 }
-.summary-bar .sum-pill::before{      /* 위 단계를 가리키는 꼬리 */
+/* 말풍선 꼬리.
+   각진 삼각형(base16 × h8)은 radius 999 알약 위에 '붙여놓은 도형'으로 보입니다.
+   윤곽이 알약에서 자라나오도록 양옆을 오목하게 흘리고(플레어) 끝을 둥글렸습니다.
+   26 × 8, 팁 반경 2.6 — 폭:높이 = 3.25:1 로 낮고 넓게. */
+.summary-bar .sum-pill::before{
   content:"";
   position:absolute;
-  top:-7px;
-  left:50%;
-  transform:translateX(-50%);
-  width:0; height:0;
-  border-bottom:8px solid #ff9a50;
-  border-left:8px solid transparent;
-  border-right:8px solid transparent;
+  top:-8px;
+  left:27px;                         /* 꼬리 중심 = 알약 왼쪽에서 40px (라운드 캡 밖) */
+  width:26px; height:9.5px;
+  border:0;
+  transform:none;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 9.5'><path d='M0 8C4.68 8 8.58 4.16 10.4 2.34Q13 0 15.6 2.34C17.42 4.16 21.32 8 26 8L26 9.5L0 9.5Z' fill='%23ff9a50'/></svg>") no-repeat 0 0 / 100% 100%;
 }
-/* 마지막 알약 : 바 오른쪽 끝에 맞추고, 두 줄 행간을 더 좁힘 */
+/* 마지막 알약 : 두 줄이라 행간만 더 좁힘 (정렬은 다른 알약과 동일) */
 .summary-bar .sum-pill--last{
   line-height:1.15;
-  margin-left:auto;
-  margin-right:0;
   padding-top:4px;                /* 알약·꼬리는 그대로, 두 줄 텍스트만 2px 내림 */
 }
 
@@ -1050,7 +1055,6 @@ a.rail-node:focus-visible{ outline:2px solid var(--ink); outline-offset:6px; }
   font-size:20px; line-height:1.5; color:var(--ink-2);
 }
 .wl-feats svg{ width:22px; height:22px; flex:0 0 auto; }
-.wl-note{ margin-top:var(--s4); font-size:16px; color:var(--ink-3); }
 
 /* 미디어 슬롯 : 사진 ↔ 단어장 샘플을 같은 자리에서 교차 (높이 변화 없음) */
 .wl-media:focus-visible{ outline:2px solid var(--ink); outline-offset:4px; border-radius:16px; }
@@ -1371,7 +1375,7 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
         선생님이 열어주고, 아이가 쌓고,<br>
         마지막엔 함께 한 권을 씁니다.
       </h2>
-      <p class="lede">단계마다 주도하는 사람이 다릅니다. 그 이동이 곧 참빛북클럽의 학습 흐름입니다.</p>
+      <p class="lede">단계마다 주도하는 사람이 달라집니다. 아이가 스스로 생각하고 읽게 만들기 위해서입니다.</p>
     </div>
 
     <div class="rail">
@@ -1408,19 +1412,19 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
           <h3>리딩 1단계<br>듣기</h3>
           <p class="who">선생님이 읽어주고<br>들려줍니다</p>
         </div>
-        <a class="rail-node" href="#reading-running" data-open-reading>
+        <a class="rail-node" href="#rdModal" data-open-reading>
           <span class="step">02</span>
           <h3>리딩 2·3단계</h3>
           <p class="who">아이가 스스로<br>읽습니다</p>
           <span class="go"><span>리딩 소개 →</span></span>
         </a>
-        <a class="rail-node" href="#reading-running" data-open-learning>
+        <a class="rail-node" href="#lnModal" data-open-learning>
           <span class="step">03</span>
           <h3>러닝 6단계</h3>
           <p class="who">아이가 스스로<br>익힙니다</p>
           <span class="go"><span>러닝 소개 →</span></span>
         </a>
-        <a class="rail-node" href="#workbook" data-open-workbook>
+        <a class="rail-node" href="#wbModal" data-open-workbook>
           <span class="step">04</span>
           <h3>리딩 워크북</h3>
           <p class="who">아이가 스스로<br>채웁니다</p>
@@ -1452,7 +1456,7 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
     <div class="section-head">
       <p class="label">HOW</p>
       <h2 class="display-2">참빛북클럽을<br>제대로 활용하려면,</h2>
-      <p class="lede">1번은 위에서 다룬 리딩 1단계입니다. 이어지는 두 가지를 함께 지켜주세요.</p>
+      <p class="lede">1단계에서 아이가 상상하는 힘을 길렀다면, 다음은 이 두 가지입니다.</p>
     </div>
 
     <article class="principle">
@@ -1465,8 +1469,8 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
         <h3 class="title">리딩워크북과 단어장, 북리포트,<br>독서기록장까지 빠짐없이 진행하세요.</h3>
         <p class="sub">읽은 내용을 확인하고 주요 단어를 익히며 독서한 결과를 기록합니다.<br>학습 과정이 차곡차곡 쌓여 아이의 성장을 눈에 보이는 기록으로 남깁니다.</p>
         <div class="link-stack">
-          <a class="link" href="#workbook" data-open-workbook>워크북 소개 <span class="arrow">→</span></a>
-          <a class="link" href="#wordlist" data-open-wordlist>단어장 소개 <span class="arrow">→</span></a>
+          <a class="link" href="#wbModal" data-open-workbook>워크북 소개 <span class="arrow">→</span></a>
+          <a class="link" href="#wlModal" data-open-wordlist>단어장 소개 <span class="arrow">→</span></a>
         </div>
       </div>
       <div class="principle-figure">
@@ -1508,7 +1512,7 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
       </div>
       <div class="principle-body">
         <h3 class="title">어린이 영어작가 과정으로<br>1년에 2권을 완성합니다.</h3>
-        <p class="sub">한 달 넘게 선생님과 함께 쓴 책 한 권.<br>그 시간이 아이를 이 학원에 머물게 합니다.</p>
+        <p class="sub">눈을 감고 상상하던 이야기를, 스스로 읽고 익힌 영어로 씁니다.</p>
         <a class="link" href="https://storyfrom-child-author.wiggly-coot-5042.chatgpt.site/" target="_blank" rel="noopener">스토리프롬 <span class="arrow">→</span></a>
       </div>
       <div class="principle-figure">
@@ -1547,8 +1551,7 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
     <div class="section-head">
       <p class="label">DESTINATION</p>
       <h2 class="display-2">
-        1단계에서 기른 상상의 힘과<br>
-        과정에서 다진 영어 기본기가<br>
+        상상하는 힘과 영어의 기본기가<br>
         한 권의 책으로 모입니다.
       </h2>
     </div>
