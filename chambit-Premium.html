@@ -1769,6 +1769,56 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
   .rail-node .go{ font-size:14px; }
 }
 
+
+/* =========================================================
+   터치 기기 : 호버 상태 고착 방지
+   손가락은 '떼어도' 호버가 남습니다. 탭 한 번으로 요소가 뜨거나
+   흐려진 채 굳으면 사용자는 오류로 읽습니다.
+   색만 바뀌는 호버는 남기고, 위치·투명도를 바꾸는 것만 해제합니다.
+   ========================================================= */
+@media (hover:none){
+  .qlist li:hover{ transform:none; box-shadow:0 6px 16px rgba(17,18,19,0.05); }
+  .qlist li:hover .qicon--off{ opacity:1; transform:translateX(-50%); }
+  .qlist li:hover .qicon--on{ opacity:0; }
+  .rail-track:hover .rail-node:not(:hover){ opacity:1; }
+  a.rail-node:not(.rail-node--key):hover::before{ border-color:var(--rail-color); box-shadow:none; }
+  a.rail-node--key:hover::before{ box-shadow:none; }
+  a.rail-node:hover .go span{ border-bottom-width:1.5px; }
+  .principle-body .link:hover .arrow,
+  .converge-out .link:hover span{ transform:none; }
+  .wl-media:hover .wl-face--photo img{ transform:none; }
+  .converge-out .link:hover{ background:rgba(0,0,0,0.34); }
+  .goal-sound:hover{ background:rgba(0,0,0,0.34); }
+}
+
+/* =========================================================
+   모바일 : 스크롤 등장 애니메이션 해제
+   요소가 opacity:0 으로 시작하므로, 관찰자가 늦거나 빠르게 스크롤하면
+   내용이 '흰 화면'으로 남습니다. 데스크톱에서는 여유롭게 보이던 연출이
+   모바일에서는 로딩 실패처럼 읽힙니다. 내용을 처음부터 보여줍니다.
+   ========================================================= */
+@media (max-width:768px){
+  .js .reveal,
+  .js .converge .in-card,
+  .js .converge .converge-arrow,
+  .js .converge .converge-out,
+  .js .rail .zchar,
+  .js .rail .zbracket .line,
+  .js .rail .zbracket .tick,
+  .js .rail .rail-node > *,
+  .js .rail .rail-track::after{
+    opacity:1 !important;
+    transform:none !important;
+    transition:none !important;
+  }
+  .js .converge .converge-plus{
+    opacity:1 !important;
+    transform:translate(-50%,-50%) !important;
+    transition:none !important;
+  }
+  .js .rail .rail-node::before{ transform:translateY(-50%) scale(1) !important; }
+}
+
 @media (prefers-reduced-motion:reduce){
   *{ transition:none !important; animation:none !important; }
   html{ scroll-behavior:auto; }
