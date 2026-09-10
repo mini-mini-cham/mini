@@ -1260,11 +1260,14 @@ body{ padding-bottom:var(--s10); }
   transform:translateY(-50%) scale(1);
   transition:transform .4s cubic-bezier(.34,1.56,.64,1), background .15s ease, border-color .15s ease, box-shadow .18s ease;
 }
-.js .rail.is-in .rail-node:nth-child(1)::before{ transition-delay:.25s; }
-.js .rail.is-in .rail-node:nth-child(2)::before{ transition-delay:.42s; }
-.js .rail.is-in .rail-node:nth-child(3)::before{ transition-delay:.59s; }
-.js .rail.is-in .rail-node:nth-child(4)::before{ transition-delay:.76s; }
-.js .rail.is-in .rail-node:nth-child(5)::before{ transition-delay:.93s; }
+/* 구간 헤더(.rail-zone) 3개가 레일 안에 함께 들어 있어
+   실제 자식 순번은 2·4·5·6·8 입니다 (1·3·7 은 구간 헤더).
+   1~5 로 적으면 04·05 가 지연 없이 먼저 튀어나옵니다. */
+.js .rail.is-in .rail-node:nth-child(2)::before{ transition-delay:.25s; }
+.js .rail.is-in .rail-node:nth-child(4)::before{ transition-delay:.42s; }
+.js .rail.is-in .rail-node:nth-child(5)::before{ transition-delay:.59s; }
+.js .rail.is-in .rail-node:nth-child(6)::before{ transition-delay:.76s; }
+.js .rail.is-in .rail-node:nth-child(8)::before{ transition-delay:.93s; }
 
 /* 캐릭터·브래킷 : 살짝 떠오르며 등장 */
 .js .rail .zchar{ opacity:0; transform:translateY(10px); }
@@ -1285,11 +1288,11 @@ body{ padding-bottom:var(--s10); }
   opacity:1; transform:none;
   transition:opacity .5s ease, transform .5s cubic-bezier(.22,.61,.36,1);
 }
-.js .rail.is-in .rail-node:nth-child(1) > *{ transition-delay:.35s; }
-.js .rail.is-in .rail-node:nth-child(2) > *{ transition-delay:.5s; }
-.js .rail.is-in .rail-node:nth-child(3) > *{ transition-delay:.65s; }
-.js .rail.is-in .rail-node:nth-child(4) > *{ transition-delay:.8s; }
-.js .rail.is-in .rail-node:nth-child(5) > *{ transition-delay:.95s; }
+.js .rail.is-in .rail-node:nth-child(2) > *{ transition-delay:.35s; }
+.js .rail.is-in .rail-node:nth-child(4) > *{ transition-delay:.5s; }
+.js .rail.is-in .rail-node:nth-child(5) > *{ transition-delay:.65s; }
+.js .rail.is-in .rail-node:nth-child(6) > *{ transition-delay:.8s; }
+.js .rail.is-in .rail-node:nth-child(8) > *{ transition-delay:.95s; }
 
 /* 호버 : 해당 단계만 또렷해집니다 */
 a.rail-node .go span{ transition:border-bottom-width .15s ease; }
