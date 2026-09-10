@@ -955,6 +955,7 @@ a.rail-node:focus-visible{ outline:2px solid var(--ink); outline-offset:6px; }
 
 /* ---------- 러닝 6단계 모달 ---------- */
 .ln-panel{
+  position:relative;              /* 이전·다음 버튼의 기준 */
   margin-top:var(--s5);
   display:grid;
   grid-template-columns:1.15fr 1fr;
@@ -1025,6 +1026,28 @@ a.rail-node:focus-visible{ outline:2px solid var(--ink); outline-offset:6px; }
   transition:background .15s ease, transform .15s ease;
 }
 .ln-dot:hover{ background:#b9b9b6; }
+/* 이전·다음 버튼 : 점 6개를 정확히 눌러야 하는 부담을 없앱니다.
+   태블릿 좌우 가장자리에 걸쳐 놓아 어느 화면 크기에서도 같은 자리에 있습니다. */
+.ln-nav{
+  position:absolute; top:50%;
+  transform:translate(0,calc(-50% - 50px));   /* 태블릿 중심에서 50px 위로 */
+  z-index:3;
+  width:60px; height:60px;                    /* 탭 영역 */
+  display:flex; align-items:center; justify-content:center;
+  border:0; border-radius:0;
+  background:none; box-shadow:none;
+  padding:0;
+  color:var(--ink-3);
+  cursor:pointer;
+  transition:color .15s ease, transform .15s ease;
+}
+.ln-nav:hover{ color:var(--ink); }
+.ln-nav--prev:hover{ transform:translate(-3px,calc(-50% - 50px)); }
+.ln-nav--next:hover{ transform:translate(3px,calc(-50% - 50px)); }
+.ln-nav:focus-visible{ outline:2px solid var(--ink); outline-offset:2px; }
+.ln-nav svg{ width:37px; height:37px; display:block; }   /* 31 → 37px (+20%) */
+.ln-nav--prev{ left:-22px; }
+.ln-nav--next{ right:-22px; }
 .ln-dot[aria-selected="true"]{ background:var(--ink); transform:scale(1.15); }
 
 @media (max-width:900px){
@@ -1731,6 +1754,7 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
     font-size:13px; color:var(--ink-3);
     text-align:center;
   }
+  .ln-nav{ display:none; }   /* 모바일은 스와이프 */
   .ln-dot{ width:12px; height:12px; position:relative; }
   /* 보이는 크기는 그대로, 손가락이 닿는 범위만 넓힙니다 */
   .ln-dot::after{ content:""; position:absolute; inset:-14px; }
@@ -2230,6 +2254,12 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
     <p class="wb-sub">단어 → 문장 만들기 → 독해, 3가지 영역을 연결한 6단계 영어 학습</p>
 
     <div class="ln-panel">
+      <button class="ln-nav ln-nav--prev" type="button" aria-label="이전 단계">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <button class="ln-nav ln-nav--next" type="button" aria-label="다음 단계">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
       <div class="ln-tablet" id="lnTablet">
         <img class="frame" src="https://cdn.bookclubs.co.kr/chambit_main/olilly_tb.png" alt="">
         <img class="scr" id="lnScreen" src="https://cdn.bookclubs.co.kr/chambit_main/WORDPREVIW.png" alt="단어 미리보기 학습 화면">
@@ -2537,7 +2567,8 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
 
   /* 자동 롤링 : 3초마다 다음 단계 (마우스를 올리면 멈춤) */
   var timer = null;
-  var touched = false;   /* 손가락으로 한 번이라도 조작하면 자동 롤링을 멈춥니다 */
+  var touched = false;   /* 사용자가 한 번이라도 직접 넘기면 자동 롤링을 멈춥니다 */
+  function goTo(i){ touched = true; stop(); current = (i + STEPS.length) % STEPS.length; render(current); }
   var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function play() {
     if (REDUCE || touched) return;
@@ -2570,8 +2601,7 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
       var dx = x - x0, dy = y - y0, dt = Date.now() - t0;
       if (Math.abs(dx) <= Math.abs(dy) * 1.3) return;                  /* 세로 제스처 무시 */
       if (Math.abs(dx) < 45 && !(Math.abs(dx) > 22 && dt < 300)) return;
-      current = (current + (dx < 0 ? 1 : -1) + STEPS.length) % STEPS.length;
-      render(current);
+      goTo(current + (dx < 0 ? 1 : -1));
     }
 
     if (window.PointerEvent) {
@@ -2594,6 +2624,11 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
     }
   })();
 
+  var navPrev = modal.querySelector('.ln-nav--prev');
+  var navNext = modal.querySelector('.ln-nav--next');
+  if (navPrev) navPrev.addEventListener('click', function(){ goTo(current - 1); });
+  if (navNext) navNext.addEventListener('click', function(){ goTo(current + 1); });
+
   [].forEach.call(document.querySelectorAll('[data-open-learning]'), function (t) {
     t.addEventListener('click', open);
   });
@@ -2602,11 +2637,11 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
   document.addEventListener('keydown', function (e) {
     if (modal.hidden) return;
     if (e.key === 'Escape') close();
-    if (e.key === 'ArrowRight') { current = (current + 1) % STEPS.length; render(current); play(); }
-    if (e.key === 'ArrowLeft')  { current = (current - 1 + STEPS.length) % STEPS.length; render(current); play(); }
+    if (e.key === 'ArrowRight') goTo(current + 1);
+    if (e.key === 'ArrowLeft')  goTo(current - 1);
   });
   dots.forEach(function (d, i) {
-    d.addEventListener('click', function () { current = i; render(i); play(); });
+    d.addEventListener('click', function () { goTo(i); });
   });
   render(0);
 })();
