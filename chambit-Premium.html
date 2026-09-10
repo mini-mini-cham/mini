@@ -2352,7 +2352,11 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
       e.target.classList.add('is-in');
       io.unobserve(e.target);
     });
-  }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
+    /* threshold 0.2 + rootMargin -8% 은 "요소가 20% 들어오고 나서" 나타나게 합니다.
+       그래서 스크롤할 때마다 빈 영역을 먼저 보게 되고, 로딩 실패처럼 읽힙니다.
+       threshold 0 + rootMargin +18% 로 바꿔 화면에 들어오기 '전에' 시작합니다.
+       이제 블록이 눈에 닿는 순간에는 이미 다 나타나 있습니다. */
+  }, { threshold: 0, rootMargin: '0px 0px 18% 0px' });
 
   [].forEach.call(targets, function (el) { io.observe(el); });
 })();
