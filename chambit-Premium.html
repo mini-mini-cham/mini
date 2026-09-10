@@ -1151,12 +1151,12 @@ a.rail-node:focus-visible{ outline:2px solid var(--ink); outline-offset:6px; }
 .wl-word b{ font-weight:700; color:var(--ink); }
 .wl-word span{ color:var(--ink-2); }
 
-/* 상태 안내 : 슬롯 아래 한 줄 (높이 고정) */
+/* 상태 안내 : 기능 목록 아래, 체크 아이콘과 같은 시작선 */
 .wl-hint{
-  margin-top:var(--s2);
+  margin-top:var(--s5);
   font-size:16px;
   color:var(--ink-3);
-  text-align:center;
+  text-align:left;
 }
 
 @media (max-width:900px){
@@ -2299,6 +2299,7 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
           <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" stroke="#5d5d5d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>뜻·단어·단어장 함께 제공</li>
           <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" stroke="#5d5d5d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>단어 시험지</li>
         </ul>
+        <p class="wl-hint" id="wlHint">이미지를 클릭하시면 자료를 확인하실 수 있습니다.</p>
       </div>
 
       <div>
@@ -2323,7 +2324,6 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
             </div>
           </span>
         </div>
-        <p class="wl-hint" id="wlHint">이미지를 클릭하시면 자료를 확인하실 수 있습니다.</p>
       </div>
     </div>
   </div>
