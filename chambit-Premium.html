@@ -143,18 +143,18 @@ ul{ margin:0; padding:0; list-style:none; }
 .section-head .lede{ margin-top:var(--s3); max-width:none; }
 
 /* ---------- 1. hero ---------- */
-.hero{ padding-top:var(--s7); }   /* 첫 화면에 아래 콘텐츠가 걸치도록 */
+.hero{ padding-top:var(--s6); }   /* 64 → 48 : 히어로를 위로 당깁니다 */
 .hero-copy{ grid-column:1 / 10; }
 .hero-copy .display-1{ margin-top:0; }
-.hero .lede{ grid-column:1 / 13; max-width:none; margin-top:var(--s4); }
+.hero .lede{ grid-column:1 / 13; max-width:none; margin-top:var(--s3); }   /* 32 → 24 */
 
 /* ---------- 2. 리딩 1단계 (틴트 패널) ---------- */
-.stage1{ margin-top:var(--s8); }
+.stage1{ margin-top:var(--s7); }   /* 80 → 64 */
 .stage1-panel{
   grid-column:1 / 13;
   background:#f4f4f4;
   border-radius:28px;
-  padding:var(--s9) var(--s7) var(--s7);
+  padding:var(--s8) var(--s7) var(--s7);   /* 상단 96 → 80 */
   display:grid;
   grid-template-columns:repeat(12,minmax(0,1fr));
   column-gap:var(--gutter);
