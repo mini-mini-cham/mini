@@ -207,15 +207,241 @@ ul{ margin:0; padding:0; list-style:none; }
   grid-column:1 / 13;
   margin-top:var(--s7);
 }
+@media (max-width:768px){
+  .section--principles .principle > .converge{
+    margin-top:var(--s4);
+    margin-bottom:0;
+    align-items:start;                 /* 마지막 행이 늘어나 빈 공간이 생기던 것 제거 */
+  }
+  .section--principles .principle > .converge .converge-out{
+    align-self:start;
+    margin-bottom:0;
+  }
+  /* 포스터 아래 ~ CTA 사이 여백 제거 */
+  .section--principles .principle{ padding-bottom:0; }
+  .section--principles{ padding-bottom:0; }
+  .section--cta{ padding-top:var(--s3); }
+}
+
+/* DESTINATION 마감 문구 : 그레이 패널 마지막 칸에 중앙 정렬로 놓습니다.
+   여기서 흐름이 끝나므로 좌우 여백을 넓게 잡아 문장이 가운데로 모이게 합니다. */
+.section--principles .principle > .cta-copy{
+  grid-column:2 / 12;
+  margin-top:50px;              /* 40 + 10 */
+  padding-top:0;
+  padding-bottom:20px;          /* 마지막 문장 아래 숨 고르는 여백 */
+  border-top:0;
+  text-align:center;
+}
+.section--principles .principle > .cta-copy .cta-label{
+  font-size:14px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--ink-3);
+}
+.section--principles .principle > .cta-copy .cta-title{
+  margin-top:var(--s3);
+  font-size:clamp(1.8rem,3vw,2.4rem);
+  line-height:1.45;
+  word-break:keep-all;
+}
+@media (max-width:900px){
+  .section--principles .principle > .cta-copy{ grid-column:1 / 13; }
+}
+@media (max-width:768px){
+  .section--principles .principle > .cta-copy{
+    margin-top:34px;            /* 24 + 10 */
+    padding-top:0;
+    padding-bottom:20px;
+  }
+  .section--principles .principle > .cta-copy .cta-label{ font-size:13px; }
+  .section--principles .principle > .cta-copy .cta-title{
+    margin-top:var(--s2);
+    font-size:24px; line-height:1.5;
+  }
+}
 /* 그레이 패널 위에서는 카드가 흰색이어야 보입니다 */
 .section--principles .principle .in-card{
   background:var(--white);
   border-color:transparent;
 }
-/* 마지막 정리 문구 : 가운데 정렬로 마침표 역할 */
-.section--dest{ padding-top:56px; }
-.section--dest .section-head{ grid-column:1 / 13; text-align:center; }
-.section--dest .section-head .display-2{ margin-top:12px; }
+/* ===== 마지막 CTA ===== */
+.section--cta{ padding-top:var(--s7); padding-bottom:var(--s10); }
+/* 마감 CTA : 왼쪽 문구 · 오른쪽 액션 (Notion·Stripe 마감 배너 방식) */
+.cta-box{
+  grid-column:1 / 13;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  column-gap:var(--s7);
+  padding:0;
+  text-align:left;
+}
+.cta-label{
+  font-size:18px; font-weight:600; letter-spacing:0.02em;
+  color:var(--ink-3);
+}
+.cta-title{
+  margin-top:var(--s2);
+  font-size:clamp(1.9rem,3.2vw,2.6rem); font-weight:700;
+  line-height:1.4; letter-spacing:-0.02em; color:var(--ink);
+}
+.cta-lead{
+  margin-top:14px;
+  max-width:24em;
+  font-size:16px; line-height:1.75; color:var(--ink-3);
+  word-break:keep-all;
+}
+/* 버튼 두 개를 같은 폭으로 묶어 하나의 덩어리로 */
+.cta-actions{
+  margin-top:0;
+  display:flex; flex-direction:column;
+  align-items:stretch; gap:8px;
+}
+.cta-btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  min-width:214px; height:50px; padding:0 22px;
+  border-radius:999px;
+  font-size:16px; font-weight:700; letter-spacing:-0.01em; line-height:1;
+  white-space:nowrap;
+  transition:background .15s ease, color .15s ease, border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.cta-btn--primary{
+  background:#ff9a50; color:#fff;
+  border:1px solid transparent;
+  box-shadow:0 6px 16px rgba(255,154,80,0.30);
+}
+.cta-btn--primary:hover{
+  background:#e07a2f;
+  transform:translateY(-2px);
+  box-shadow:0 10px 22px rgba(224,122,47,0.34);
+}
+.cta-btn--ghost{
+  background:#eceae6; color:var(--ink);
+  border:1px solid transparent;
+  box-shadow:none;
+}
+.cta-btn--ghost:hover{
+  background:#e2dfda;
+  transform:translateY(-2px);
+}
+
+/* 문의 블록 : 사용 가이드 페이지와 같은 규격 */
+.cta-help{
+  grid-column:1 / 13;
+  margin-top:var(--s7);
+  padding-top:0;
+  border-top:0;
+}
+.cta-help-title{
+  font-size:22px; font-weight:700; line-height:1.4; letter-spacing:-0.015em;
+  color:var(--ink);
+}
+.cta-help-lead{
+  margin-top:12px;
+  font-size:16px; line-height:1.75; color:var(--ink-3);
+  word-break:keep-all;
+}
+.cta-help-grid{
+  margin-top:var(--s4);
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:var(--s2);
+}
+.help-card{
+  display:flex; align-items:center; gap:14px;
+  background:none;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:18px 20px;
+  transition:border-color .15s ease, transform .15s ease;
+}
+.help-card:hover{ border-color:var(--ink); transform:translateY(-2px); }
+.help-ico{
+  flex:0 0 auto;
+  width:44px; height:44px;
+  display:inline-flex; align-items:center; justify-content:center;
+  border-radius:12px;
+}
+.help-ico svg{ width:22px; height:22px; }
+.help-ico--kakao{ background:#fae100; }
+.help-ico--tel{ background:var(--ink); }
+/* 활용 시나리오 3종
+   연한 틴트 하나를 셋에 돌려 쓰면 아이콘이 배경처럼 읽힙니다.
+   카드마다 고유색을 꽉 채우고, 같은 색을 hover 테두리까지 잇습니다. */
+.cta-help-grid--3{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+.help-card--sc{ --sc:var(--ink); }
+.help-card--sc:nth-of-type(1){ --sc:#ff9a50; }   /* 수업용 · 브랜드 포인트 */
+.help-card--sc:nth-of-type(2){ --sc:#111213; }   /* 숙제용 · 잉크 */
+.help-card--sc:nth-of-type(3){ --sc:#4f7a72; }   /* 랩실용 · 딥 틸 */
+.help-ico--sc{ background:var(--sc); color:#fff; }
+.help-ico--sc svg{ width:24px; height:24px; }
+.help-card--sc:hover{ border-color:var(--sc); }
+.help-card--sc:hover .help-go{ color:var(--sc); }
+/* 문의는 박스 대신 한 줄로 — 카드가 연속으로 쌓이지 않게 합니다 */
+.cta-contact{
+  margin-top:var(--s4);
+  font-size:15px; line-height:1.7; color:var(--ink-3);
+}
+.cta-contact a{
+  color:var(--ink); font-weight:600;
+  border-bottom:1px solid var(--line-2);
+  padding-bottom:1px;
+  transition:border-color .15s ease;
+}
+.cta-contact a:hover{ border-color:var(--ink); }
+.cta-contact i{
+  display:inline-block; width:1px; height:11px;
+  margin:0 10px -1px;
+  background:var(--line-2);
+}
+.help-txt{ flex:1 1 auto; min-width:0; }
+.help-txt em{
+  display:block;
+  font-style:normal; font-size:14px; font-weight:600; color:var(--ink-3);
+}
+.help-txt b{
+  display:block; margin-top:4px;
+  font-size:18px; font-weight:700; letter-spacing:-0.01em; color:var(--ink);
+}
+.help-go{
+  flex:0 0 auto;
+  font-size:22px; color:var(--ink-3); line-height:1;
+  transition:transform .15s ease;
+}
+.help-card:hover .help-go{ transform:translateX(3px); }
+.cta-btn:focus-visible{ outline:2px solid var(--ink); outline-offset:4px; }
+.cta-btn .arrow{ display:inline-block; transition:transform .15s ease; }
+.cta-btn:hover .arrow{ transform:translateX(4px); }
+
+@media (max-width:900px){
+  .cta-box{
+    grid-template-columns:1fr;
+    row-gap:var(--s4);
+    padding:0;
+  }
+  .cta-lead{ max-width:none; }
+  .cta-btn{ min-width:0; width:100%; }
+}
+@media (max-width:768px){
+  .section--cta{ padding-top:var(--s2); padding-bottom:var(--s6); }
+  .cta-box{ padding:0; row-gap:var(--s4); }
+  .cta-label{ font-size:12px; }
+  .cta-title{ margin-top:10px; }
+  .cta-lead{ margin-top:12px; font-size:15px; line-height:1.7; }
+  .cta-btn{ height:54px; padding:0 20px; font-size:16px; }
+  .cta-help{ margin-top:var(--s6); padding-top:0; }
+  .cta-help-title{ font-size:19px; }
+  .cta-help-lead{ margin-top:10px; font-size:15px; }
+  .cta-help-grid,
+  .cta-help-grid--3{ margin-top:var(--s3); grid-template-columns:1fr; }
+  .help-card{ padding:16px; }
+  .help-txt b{ font-size:17px; }
+  .cta-contact{ margin-top:var(--s3); font-size:14px; }
+  .cta-contact i{ display:none; }
+  .cta-contact a{ display:block; width:max-content; margin-top:6px; }
+}
+
+/* 종착점 섹션은 converge 를 담고만 있고 (JS 가 5번으로 옮깁니다) 화면에는 남지 않습니다 */
+.section--dest{ padding:0; }
 .section-head{ grid-column:1 / 12; }
 .section-head .display-2{ margin-top:var(--s2); }
 .section-head .lede{ margin-top:var(--s3); max-width:none; }
@@ -623,8 +849,9 @@ a.rail-node--key:hover::before{
   font-size:17px; font-weight:700; line-height:1.35; letter-spacing:-0.015em;
 }
 .rs-card h4 span{
-  display:inline; margin-left:8px;
+  display:inline-block; margin-left:8px;
   font-size:15px; font-weight:600; color:var(--ink-2);
+  white-space:nowrap;          /* '소리 내어 읽기'가 중간에서 끊기지 않게 */
 }
 .rs-card .rs-desc{
   grid-column:2; margin-top:6px;
@@ -633,9 +860,50 @@ a.rail-node--key:hover::before{
 
 @media (max-width:900px){
   #step02 .sf-body{ grid-template-columns:1fr; grid-template-rows:auto auto auto; padding:var(--s3); row-gap:var(--s3); }
-  #step02 .rd-tablet{ grid-area:2 / 1 / 3 / 2; }
-  #step02 .rd-panel > div{ grid-area:1 / 1 / 2 / 2; }
-  #step02 .rs-grid{ grid-area:3 / 1 / 4 / 2; }
+  /* 태블릿 이미지의 흰 여백이 위아래 텍스트를 덮지 않도록 레이어 순서 지정 */
+  #step02 .rd-tablet{
+    grid-area:2 / 1 / 3 / 2;
+    margin-top:-30px;
+    position:relative; z-index:0;
+  }
+  #step02 .rd-panel > div{
+    grid-area:1 / 1 / 2 / 2;
+    position:relative; z-index:2;
+  }
+  #step02 .rs-grid{
+    grid-area:3 / 1 / 4 / 2;
+    position:relative; z-index:2;
+  }
+
+  /* STEP 카드 : 텍스트는 한 축으로, 아이콘은 오른쪽으로 */
+  .rs-card{
+    grid-template-columns:minmax(0,1fr) 76px;
+    column-gap:14px;
+    padding:var(--s3) 0;
+  }
+  .rs-icon{
+    grid-column:2;
+    grid-row:1 / span 2;
+    align-self:center;
+    width:76px; height:62px;
+  }
+  .rs-card .cap,
+  .rs-card h4{ grid-column:1; }
+  .rs-card .cap{ font-size:13px; letter-spacing:0.04em; }
+  .rs-card h4{ margin-top:6px; font-size:18px; line-height:1.3; }
+  /* 영문 / 한글을 항상 두 줄로 : 세 카드의 간격을 동일하게 */
+  .rs-card h4 span{
+    display:block;
+    margin-left:0; margin-top:4px;
+    font-size:14px;
+  }
+  .rs-card .rs-desc{
+    grid-column:1 / 3;
+    margin-top:12px;
+    font-size:15px; line-height:1.7;
+    word-break:keep-all;
+  }
+  .rs-card + .rs-card{ margin-top:0; padding-top:var(--s3); }
 }
 
 /* 짧은 키워드 4개 : 2 × 2 (칩 크기는 다른 카드와 동일하게 내용 폭) */
@@ -998,14 +1266,17 @@ a.rail-node:focus-visible{ outline:2px solid var(--ink); outline-offset:6px; }
 /* 영상 위의 UI = 당근 방식 그대로.
    당근은 영상 위 칩·링크를 background:rgba(0,0,0,.3) + backdrop-filter:blur(10px) 알약으로 처리하고
    그림자(box-shadow·text-shadow)는 일절 쓰지 않습니다. 뒤 배경을 흐려서 눌러버리는 방식입니다. */
+/* 어두운 일러스트 위에서는 반투명 검정이 묻힙니다 → 흰 알약 + 잉크 텍스트 */
+/* 흰 유리 : 뒤 그림이 살짝 비치면서도 글자는 또렷하게 */
 .glass{
   display:inline-flex; align-items:center; gap:10px;
   border-radius:999px;
-  background:rgba(0,0,0,0.34);
-  -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
-  color:#fff;
+  background:rgba(255,255,255,0.78);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
+  backdrop-filter:blur(14px) saturate(140%);
+  color:var(--ink);
   text-shadow:none;
-  box-shadow:none;
+  box-shadow:0 6px 20px rgba(0,0,0,0.22), inset 0 0 0 1px rgba(255,255,255,0.55);
   border:0;
 }
 .converge-out .link{
@@ -1014,10 +1285,10 @@ a.rail-node:focus-visible{ outline:2px solid var(--ink); outline-offset:6px; }
   font-size:18px; font-weight:600; letter-spacing:-0.01em; line-height:1;
   transition:background .15s ease;
 }
-.converge-out .link:hover{ background:rgba(0,0,0,0.52); }
+.converge-out .link:hover{ background:rgba(255,255,255,0.92); color:#e07a2f; }
 .converge-out .link span{ display:inline-block; transition:transform .15s ease; }
 .converge-out .link:hover span{ transform:translateX(3px); }
-.converge-out .link:focus-visible{ outline:2px solid #fff; outline-offset:3px; }
+.converge-out .link:focus-visible{ outline:2px solid #ff9a50; outline-offset:3px; }
 
 /* ---------- 워크북 모달 ---------- */
 .wb-overlay{
@@ -1845,11 +2116,8 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
     margin:1px 0 0; min-height:0;
     font-size:19px; line-height:1.35; letter-spacing:-0.02em;
   }
-  .rail-node .go{
-    grid-area:1 / 3;
-    margin:4px 0 0; padding:0;
-    font-size:15px; white-space:nowrap;
-  }
+  /* 모바일에서는 소개 링크를 숨깁니다 — 바로 아래 1~5번 블록이 같은 내용입니다 */
+  .rail-node .go{ display:none; }
   /* 설명은 캡션 위계 — 제목 19 : 설명 15 로 당근의 20 : 14 비례를 따릅니다 */
   .rail-node .who{
     grid-area:2 / 2 / 3 / 4;
@@ -2244,7 +2512,7 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
   overflow:hidden;
 }
 #step04 .wb-panel .wb-open{
-  margin:0;
+  margin:0 0 -1px;            /* 서브픽셀 흰 선 제거 */
   aspect-ratio:878 / 430;     /* 이미지가 absolute 라 높이를 반드시 잡아줘야 합니다 */
   max-height:none;
   align-self:end;             /* 책 아래가 카드 밑변에 맞습니다 */
@@ -2263,21 +2531,80 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
 }
 #step04 .wb-side{ padding:0 0 var(--s4) 0; }
 #step04 .wb-side{ display:flex; flex-direction:column; align-self:center; }
-#step04 .wb-side .ph-step{ margin:0; }
-#step04 .wb-side .wb-note{ margin-top:var(--s3); text-align:left; font-size:15px; }
-#step04 .wb-side .wbf-levels{ justify-content:flex-start; margin-top:12px; }
+/* 오른쪽 열 : 모두 가운데 정렬 (체크리스트만 가운데 놓인 왼쪽 정렬 블록) */
+#step04 .wb-side{ align-items:center; }
+#step04 .wb-side .ph-step{ margin:0 auto; }
+#step04 .wb-side .wb-note{ margin-top:var(--s3); text-align:center; font-size:15px; }
+#step04 .wb-side .wbf-levels{ justify-content:center; margin-top:var(--s2); }
 #step04 .wb-side .wb-controls{
+  width:100%;
   margin-top:var(--s3); padding-top:var(--s3);
-  justify-content:flex-start;
+  justify-content:center;
 }
-#step04 .wb-features{ flex-direction:column; gap:10px; }
+#step04 .wb-features{
+  flex-direction:column; align-items:flex-start;
+  gap:var(--s2);
+  width:fit-content; margin:0 auto;
+}
 #step04 .wb-features li{ font-size:16px; }
 @media (max-width:900px){
-  #step04 .wb-panel{ grid-template-columns:1fr; row-gap:var(--s3); }
+  #step04 .wb-panel{
+    grid-template-columns:1fr;
+    row-gap:var(--s3);
+    padding:12px var(--s3) var(--s3);
+    overflow:hidden;        /* 확대된 책이 흰 카드 밖으로 나가지 않게 */
+  }
+  /* 책을 30% 크게 : 박스를 세로로 늘리고 이미지를 확대 */
+  #step04 .wb-panel .wb-open{
+    margin:-16px 0 0;       /* 카드 윗변과 책 사이 빈 공간 축소 */
+    aspect-ratio:878 / 560;
+  }
+  #step04 .wb-panel .wb-open img{ transform:translateX(10px) scale(1.3); }
+  /* 배지를 이미지 안쪽 하단으로 : 카드 밖으로 나가지 않게 */
+  #step04 .wb-panel .wb-open-badge{
+    top:auto; bottom:4px;
+    left:50%; right:auto;
+    transform:translateX(-50%);
+  }
+  #step04 .wb-panel .wb-open:hover .wb-open-badge{
+    transform:translateX(-50%) translateY(-2px);
+  }
+  /* 카드 안 요소는 모두 가운데, 체크리스트만 '가운데 놓인 왼쪽 정렬 블록' */
+  #step04 .wb-side{ padding:0; align-items:center; }
+  #step04 .wb-side .ph-step{ margin:0 auto; }
+  #step04 .wb-side .wb-note{ margin-top:var(--s3); text-align:center; }
+  #step04 .wb-side .wb-controls{
+    display:block;                 /* flex 정렬 변수 제거 */
+    width:100%;
+    margin-top:var(--s3); padding-top:var(--s3);
+  }
+  #step04 .wb-features{
+    display:flex; flex-direction:column; align-items:flex-start;
+    gap:var(--s2);
+    width:fit-content;             /* 내용 폭만큼만 */
+    margin-left:auto; margin-right:auto;
+    transform:translateX(-10px);   /* 시각 보정 : 왼쪽으로 10px */
+  }
+  #step04 .wb-features li{
+    font-size:16px; line-height:1.5;
+    align-items:flex-start; gap:10px;
+  }
+  #step04 .wb-features svg{ margin-top:2px; }
+  /* 레벨 칩 6개를 무조건 한 줄로 : 폭을 균등 분할 */
+  #step04 .wb-side .wbf-levels{
+    display:grid;
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    gap:6px;
+    justify-content:stretch;
+  }
+  #step04 .wb-side .wbf-levels button{ width:100%; height:42px; font-size:15px; }
 }
 
 /* ④ 워크북 다음 단계 : 독후활동 3종 */
 .wbx{ margin-top:var(--s6); }
+br.mo{ display:none; }                 /* 모바일에서만 줄바꿈 */
+@media (max-width:768px){ br.mo{ display:inline; } }
+
 .wbx-head{ text-align:center; }
 .wbx-head h3{
   font-size:24px; font-weight:700; line-height:1.4; letter-spacing:-0.015em;
@@ -2367,16 +2694,29 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
   .wbx-head > p{ font-size:15px; }
   .wbx-grid{ grid-template-columns:1fr; }
   .wbx-lv, .wbx-note, .wbx-item .link{ margin-top:var(--s2); padding-top:0; }
-  .wbx-sum{ padding:var(--s3); }
-  .wbx-sum .pill{ font-size:14px; padding:7px 13px; }
-  .wbx-sum-txt{ margin-top:var(--s2); font-size:15px; }
+  .wbx-sum{ padding:var(--s4) var(--s3); }
+  /* 4종을 2 × 2 로 : + 기호가 줄 끝에 매달리지 않게 */
+  .wbx-sum-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    max-width:320px;
+    margin:0 auto;
+  }
+  .wbx-sum-row b{ display:none; }
+  .wbx-sum .pill{
+    font-size:15px; padding:11px 8px;
+    text-align:center; white-space:normal;
+  }
+  .wbx-sum-txt{
+    margin-top:var(--s3); font-size:16px; line-height:1.6;
+    word-break:keep-all; text-wrap:balance;
+  }
 }
 
 /* 독서기록장 모달 : 표지 → 내지 전환 */
 #rjModal .wl-panel{ grid-template-columns:1fr 1.5fr; column-gap:var(--s5); }
 #rjModal .wl-copy{ padding-left:78px; }   /* 단어장 대비 오른쪽으로 30px */
-#rjModal .wl-feats{ display:grid; gap:var(--s3); }
-#rjModal .wl-feats li{ font-size:18px; line-height:1.5; }
 /* 내지를 볼 때는 왼쪽 설명을 접고 이미지만 크게 */
 #rjModal .wl-panel.is-inner{ grid-template-columns:1fr; }
 #rjModal .wl-panel.is-inner .wl-copy{ display:none; }
@@ -2461,13 +2801,40 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
   font-size:24px; font-weight:700; line-height:1.35; letter-spacing:-0.015em;
   color:var(--ink);
 }
-#brModal .wl-hint{ margin-top:12px; font-size:16px; line-height:1.7; }
+#brModal .wl-hint{ margin-top:12px; }
 .br-figure{ display:block; max-width:62%; margin:0 auto; }
 .br-figure img{
   display:block; width:100%; height:auto;
   transition:opacity .18s ease;
 }
 .br-figure.is-loading img{ opacity:0; }
+
+/* 모바일 : 자료 팝업 2단 → 1단, 레벨 칩은 균등 분할로 한 줄 유지 */
+@media (max-width:768px){
+  #brModal .wl-panel,
+  #rjModal .wl-panel{
+    grid-template-columns:1fr;
+    row-gap:var(--s3);
+    padding:var(--s3);
+  }
+  #brModal .wl-copy{ padding-left:0; }
+  #rjModal .wl-copy,
+  #wlModal .wl-copy{ padding-left:40px; }
+
+  .br-levels{
+    display:grid;
+    grid-template-columns:repeat(7,minmax(0,1fr));
+    gap:5px;
+  }
+  .br-levels button{ width:100%; height:40px; font-size:14px; }
+  .br-book{ margin-top:var(--s3); font-size:19px; }
+  .br-figure{ max-width:100%; }
+  .rj-figure.is-cover{ max-width:52%; }
+  #rjModal .wl-panel.is-inner .rj-figure{ max-width:100%; }
+  .rj-dots{ padding-left:0; justify-content:center; margin-top:var(--s2); }
+  .rj-badge{ font-size:13px; padding:8px 13px; }
+  #rjModal .rj-figure.is-cover .rj-badge{ right:-10px; bottom:10px; }
+}
 .wbx-copy .sub{ margin-top:var(--s3); font-size:18px; line-height:1.9; color:var(--ink-2); }
 .wbx-copy .link{
   display:inline-flex; align-items:center; gap:8px;
@@ -2486,7 +2853,7 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
 .wbx .checklist .check rect{ fill:#ff9a50; }   /* 상단 포인트 컬러와 통일 */
 
 @media (max-width:768px){
-  .section--principles .principle{ padding:var(--s6) var(--s3) var(--s5); border-radius:20px; }
+  .section--principles .principle{ padding:var(--s5) var(--s3) 0; border-radius:20px; }
 }
 @media (max-width:900px){
   .wbx{ grid-template-columns:1fr; row-gap:var(--s4); }
@@ -2509,6 +2876,31 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
   .ln-card p{ font-size:15px; }
   .ln-card .cap{ font-size:14px; }
   .stepfull .rd-steps, .stepfull .rd-tablet{ padding:var(--s2); }
+}
+
+/* ===========================================================
+   마감 구간 여백 — 반드시 파일 맨 끝에 둡니다.
+   1661행의 @media 안 `.section{ padding-top:120px }` 가
+   앞쪽에 쓴 규칙들을 덮어쓰고 있었습니다. (동일 특이도 → 뒤가 우선)
+   =========================================================== */
+.section--dest{ padding:0; }
+.section--cta{ padding-top:var(--s7); padding-bottom:var(--s10); }
+
+@media (max-width:768px){
+  .section--dest{ padding:0; }
+
+  /* [수정 1] 패널 아래 여백. 이제 패널이 DESTINATION 마감 문구로 끝나므로
+     영상 박스만 있을 때보다 넉넉하게 잡습니다. */
+  .section--principles .principle{ padding-bottom:var(--s6); }
+
+  /* 패널 radius(20px) 안쪽에 들어가는 카드이므로 한 단계 작은 값으로 맞춥니다 */
+  .section--principles .principle > .converge .converge-out{
+    border-radius:16px;
+    overflow:hidden;
+  }
+
+  /* [수정 2] 패널 아래 ~ DESTINATION 사이 : 24px → 44px (요청 +20px) */
+  .section--cta{ padding-top:44px; padding-bottom:var(--s6); }
 }
 </style>
 </head>
@@ -2839,7 +3231,7 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
         <!-- 워크북 다음 단계 : 독후활동 3종 -->
         <div class="wbx">
           <div class="wbx-head">
-            <h3>워크북에 더해, 세 가지를 함께 진행합니다</h3>
+            <h3>워크북에 더해,<br class="mo"> 세&nbsp;가지를 함께 진행합니다</h3>
             <p>읽은 것을 한 장으로 정리하고, 기록으로 쌓고, 단어를 익힙니다.</p>
           </div>
           <div class="wbx-grid">
@@ -2994,13 +3386,6 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
 <!-- ============ 5. 종착점 ============ -->
 <section class="section section--dest">
   <div class="container grid">
-    <div class="section-head">
-      <p class="label">DESTINATION</p>
-      <h2 class="display-2">
-        상상하는 힘과 영어의 기본기가<br class="pc">
-        한 권의 책으로 모입니다.
-      </h2>
-    </div>
 
     <div class="converge">
       <div class="converge-in">
@@ -3048,6 +3433,71 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
           <a class="link glass" href="https://storyfrom-child-author.wiggly-coot-5042.chatgpt.site/" target="_blank" rel="noopener">스토리프롬 <span>→</span></a>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. 무료체험 CTA ============ -->
+<section class="section section--cta">
+  <div class="container grid">
+    <!-- DESTINATION 마감 문구 : JS 가 위 그레이 패널 안 마지막으로 옮깁니다 -->
+    <div class="cta-copy">
+      <p class="cta-label">DESTINATION</p>
+      <h2 class="cta-title">상상하는 힘과 영어의 기본기가<br class="pc"> 한 권의 책으로 모입니다.</h2>
+    </div>
+
+    <!-- 활용 시나리오 3종 : 카드 규격은 문의 카드와 동일합니다 -->
+    <div class="cta-help">
+      <h3 class="cta-help-title">쓰는 방법은 한 가지가 아닙니다</h3>
+      <p class="cta-help-lead">교실 사정에 따라 수업으로도, 숙제로도, 랩실 자율학습으로도 운영됩니다.<br class="pc"> 우리 학원에 맞는 방식을 골라 확인해 보세요.</p>
+      <div class="cta-help-grid cta-help-grid--3">
+        <a class="help-card help-card--sc" href="https://new.bookclubs.co.kr/pages/bookclubs/freetrial/apply?sc=class#sc-class" target="_blank" rel="noopener">
+          <span class="help-ico help-ico--sc" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 5.6h5.2c1.2 0 2.2.5 2.8 1.3.6-.8 1.6-1.3 2.8-1.3H20v11.2h-5.2c-1.2 0-2.2.5-2.8 1.3-.6-.8-1.6-1.3-2.8-1.3H4V5.6z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+              <path d="M12 6.9v11.2" stroke="currentColor" stroke-width="1.7"/>
+            </svg>
+          </span>
+          <span class="help-txt">
+            <em>교실에서 함께</em>
+            <b>수업용</b>
+          </span>
+          <span class="help-go" aria-hidden="true">›</span>
+        </a>
+        <a class="help-card help-card--sc" href="https://new.bookclubs.co.kr/pages/bookclubs/freetrial/apply?sc=hw#sc-class" target="_blank" rel="noopener">
+          <span class="help-ico help-ico--sc" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M15.4 4.6l4 4L9.2 18.8l-4.9.9.9-4.9L15.4 4.6z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+              <path d="M13.6 6.4l4 4" stroke="currentColor" stroke-width="1.7"/>
+            </svg>
+          </span>
+          <span class="help-txt">
+            <em>집에서 스스로</em>
+            <b>숙제용</b>
+          </span>
+          <span class="help-go" aria-hidden="true">›</span>
+        </a>
+        <a class="help-card help-card--sc" href="https://new.bookclubs.co.kr/pages/bookclubs/freetrial/apply?sc=lab#sc-class" target="_blank" rel="noopener">
+          <span class="help-ico help-ico--sc" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3.4" y="5" width="17.2" height="11" rx="2" stroke="currentColor" stroke-width="1.7"/>
+              <path d="M8.6 19.4h6.8M12 16v3.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="help-txt">
+            <em>각자 속도대로</em>
+            <b>랩실용</b>
+          </span>
+          <span class="help-go" aria-hidden="true">›</span>
+        </a>
+      </div>
+
+      <p class="cta-contact">
+        더 궁금한 점은
+        <a href="https://pf.kakao.com/_bPJub/chat" target="_blank" rel="noopener">카카오톡 상담</a>
+        <i aria-hidden="true"></i>
+        <a href="tel:07075478969">고객센터 070-7547-8969</a>
+      </p>
     </div>
   </div>
 </section>
@@ -3722,11 +4172,14 @@ a.rail-node:hover .go span{ border-bottom-width:2.5px; }
   });
 })();
 
-/* 종착점 구성(converge)을 5번 패널 안으로 옮깁니다 — DESTINATION 문구만 마지막에 남깁니다 */
+/* 종착점 구성(converge)과 DESTINATION 마감 문구를 5번 패널 안으로 옮깁니다 */
 (function () {
-  var conv = document.querySelector('.section--dest .converge');
   var host = document.querySelector('#principles-body .principle');
-  if (conv && host) host.appendChild(conv);
+  if (!host) return;
+  var conv = document.querySelector('.section--dest .converge');
+  if (conv) host.appendChild(conv);
+  var copy = document.querySelector('.section--cta .cta-copy');
+  if (copy) host.appendChild(copy);
 })();
 
 /* 주도 칩에 상단 밴드의 캐릭터를 그대로 재사용 (같은 인물 = 같은 흐름) */
